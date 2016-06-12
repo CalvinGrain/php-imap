@@ -109,6 +109,11 @@ class Mailbox {
 		return imap_check($this->getImapStream());
 	}
 
+	public function mailboxes()
+	{
+		return imap_getmailboxes($this->getImapStream(), $this->$imapPath , "*" );
+	}
+
 	/**
 	 * Creates a new mailbox specified by mailbox.
 	 *
@@ -192,7 +197,7 @@ class Mailbox {
 	public function moveMail($mailId, $mailBox) {
 		return imap_mail_move($this->getImapStream(), $mailId, $mailBox, CP_UID) && $this->expungeDeletedMails();
 	}
-	
+
 	/**
 	 * Copys mails listed in mailId into new mailbox
 	 * @return bool
@@ -402,7 +407,7 @@ class Mailbox {
 		}
 		return $quota;
 	}
-	
+
 	/**
 	 * Get raw mail data
 	 *
@@ -415,7 +420,7 @@ class Mailbox {
         	if(!$markAsSeen) {
             		$options |= FT_PEEK;
         	}
-        	
+
 		return imap_fetchbody($this->getImapStream(), $msgId, '', $options);
 	}
 
