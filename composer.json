@@ -1,5 +1,5 @@
 {
-	"name": "php-imap/php-imap",
+	"name": "calvingrain/php-imap",
 	"description": "PHP class to access mailbox by POP3/IMAP/NNTP using IMAP extension",
 	"keywords": [
 		"PHP",
