@@ -62,5 +62,6 @@ class IncomingMailAttachment {
 	public $id;
 	public $name;
 	public $filePath;
+	public $fileData;
 	public $disposition;
 }
