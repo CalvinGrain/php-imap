@@ -439,7 +439,7 @@ class Mailbox {
 		$mail->date = date('Y-m-d H:i:s', isset($head->date) ? strtotime(preg_replace('/\(.*?\)/', '', $head->date)) : time());
 		$mail->subject = isset($head->subject) ? $this->decodeMimeStr($head->subject, $this->serverEncoding) : null;
 		$mail->fromName = isset($head->from[0]->personal) ? $this->decodeMimeStr($head->from[0]->personal, $this->serverEncoding) : null;
-		$mail->fromAddress = isset($head->from[0]->mailbox) ? strtolower($head->from[0]->mailbox . '@' . $head->from[0]->host) : '';
+		$mail->fromAddress = (isset($head->from[0]->mailbox) ? strtolower($head->from[0]->mailbox) : 'empty'). '@' . (isset($head->from[0]->host)?$head->from[0]->host:'empty');
 
 		if(isset($head->to)) {
 			$toStrings = array();
@@ -462,7 +462,7 @@ class Mailbox {
 
 		if(isset($head->reply_to)) {
 			foreach($head->reply_to as $replyTo) {
-				$mail->replyTo[strtolower($replyTo->mailbox . '@' . $replyTo->host)] = isset($replyTo->personal) ? $this->decodeMimeStr($replyTo->personal, $this->serverEncoding) : null;
+				$mail->replyTo[strtolower((isset($replyTo->mailbox)?$replyTo->mailbox:'empty') . '@' . (isset($replyTo->host)?$replyTo->host:'empty') )] = isset($replyTo->personal) ? $this->decodeMimeStr($replyTo->personal, $this->serverEncoding) : null;
 			}
 		}
 
